@@ -1,0 +1,323 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MileStoneApplication
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            //Variable declerations
+            bool Readonly = LstMoney.Items.IsReadOnly;
+   
+
+       }
+
+        #region  static Var Declarations
+        public static string AccountName { get; set; }
+        public static string AccountPin { get; set; }
+        public static List<int> ListVals = new List<int>();
+        public static int SentAmount;
+        public static double Total { get; set; }
+        public static double[] MoneyArray = { 10.00, 20.00, 30.00, 40.00, 50.00, 60.00, 70.00, 80.00, 90.00, 100.00 };
+        public static char DollarSign = '$';
+        public static double AmountTotal;
+
+
+        public static double Remainder = Total - SentAmount;
+
+        #endregion
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ///   AmountTotal = int.Parse(Totaltxt.Text);
+            AccountNametxt.Text = AccountName;
+            AccountName = AccountNametxt.Text;
+            AccountPinTxt.Text = AccountPin;
+            Totaltxt.Text = Total.ToString();
+            //AccountPin = AccountPinTxt.Text;
+            Totaltxt.ReadOnly = true;
+            listView1.GridLines = true;
+
+            ListVals.Add(10);
+            ListVals.Add(20);
+            ListVals.Add(30);
+            ListVals.Add(50);
+            ListVals.Add(60);
+            ListVals.Add(70);
+            ListVals.Add(80);
+            ListVals.Add(90);
+            ListVals.Add(100);
+            
+            LstMoney.Items.Add("10");
+            LstMoney.Items.Add("20");
+            LstMoney.Items.Add("30");
+            LstMoney.Items.Add("50");
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSendAmount_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                double _Remainder = Convert.ToInt32(LstMoney.Text);
+                _Remainder = Remainder;
+
+            }
+            catch(Exception err)
+            {
+                double RemainderAmount = Convert.ToInt32(LstMoney.Text);
+            }
+
+            //_Remainder = Remainder;
+            if (LstMoney.SelectedItem.Equals("10"))
+            {
+                // SentAmount = MoneyArray[0];
+                double remainder = Total - MoneyArray[0];
+
+
+                MessageBox.Show(DollarSign + Remainder.ToString());
+
+                //  TransactionView.SelectedItems.
+
+
+            }
+
+            else
+            if (LstMoney.SelectedItem.Equals("20"))
+            {
+
+                // SentAmount = MoneyArray[0];
+                double remainder = Total - MoneyArray[1];
+
+
+                MessageBox.Show(DollarSign + Remainder.ToString());
+                richTextBox1.AppendText(" Transaction sent " + AccountNametxt.Text + DollarSign + MoneyArray[2] + Environment.NewLine);
+                richTextBox1.AppendText("Remaining balance " + DollarSign + remainder);
+
+
+            }
+            else
+            if (LstMoney.SelectedItem.Equals("30"))
+            {
+
+                // SentAmount = MoneyArray[0];
+                double remainder = Total - MoneyArray[2];
+
+
+                MessageBox.Show(DollarSign + Remainder.ToString());
+                richTextBox1.AppendText(" Transaction sent " + AccountNametxt.Text + DollarSign + MoneyArray[3] + Environment.NewLine);
+                richTextBox1.AppendText("Remaining balance " + DollarSign + remainder);
+
+            }
+            else
+            if (LstMoney.SelectedItem.Equals("40"))
+            {
+
+                // SentAmount = MoneyArray[0];
+                double remainder = Total - MoneyArray[4];
+
+
+                MessageBox.Show(DollarSign + Remainder.ToString());
+                richTextBox1.AppendText(" Transaction sent " + AccountNametxt.Text + DollarSign + MoneyArray[4] + Environment.NewLine);
+                richTextBox1.AppendText("Remaining balance " + DollarSign + remainder);
+            }
+            else
+            {
+                if (LstMoney.SelectedItem != null)
+                {
+                    double remainder = Total - int.Parse(LstMoney.Text);
+                    MessageBox.Show(LstMoney.Text);
+                }
+            }
+        
+
+
+        Display();
+        Balance();
+
+    }
+
+           private void Balance()
+        {
+            
+            {
+                double _Remainder = Convert.ToInt32(LstMoney.SelectedItem.ToString());
+                if (AmountTotal > _Remainder)
+                {
+                   
+                    double i = AmountTotal - _Remainder;
+                    // MessageBox.Show(i.ToString());
+                    RemainingBalanceTxt.Text = i.ToString();
+                }
+                else
+                    if(AmountTotal == null || AmountTotal < _Remainder)
+                {
+                    MessageBox.Show("Unable to void transaction");
+                }
+            }
+        }
+    public void Display()
+             // DateTime date = DateTime.Now;
+        {
+          DateTime date = DateTime.Now;
+   
+            ListViewItem item = new ListViewItem();
+            ListViewItem strngName = new ListViewItem(AccountNametxt.Text);
+            //item.Text.Equals(AccountNametxt.Text);
+           // listView1.Items.Add(item);
+            item.SubItems.Add(LstMoney.SelectedItem.ToString());
+            item.SubItems.Add(AccountPinTxt.Text);
+            item.SubItems.Add(date.ToString()) ;
+               
+          //  listView1.Items.Add(AccountNametxt.Text, AccountPinTxt.Text, LstMoney.SelectedItem.ToString());
+            listView1.Items.Add(item);
+            listView1.Items.Add(strngName);
+           // listView1.Items.Add(date.ToString());
+           
+          
+        
+
+           
+
+            //elistView1.Items.Add(item);
+            //listView1.Items.Add(AccountPinTxt.Text);
+
+
+
+
+        }
+        private void TransactionView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        #region Method holder for user's Transaction
+
+        public void VoidTransaction()
+        {
+            #region Cases on the User's combobox selection 
+            switch (LstMoney.SelectedItem)
+            {
+                case "10":
+                    {
+                        if (LstMoney.SelectedItem.Equals("10"))
+                        {
+                            MoneyArray[0] = Remainder;
+                            richTextBox1.AppendText("Transaction sent" + AccountNametxt.Text + DollarSign + MoneyArray[0] + Environment.NewLine);
+
+                        }
+                        break;
+                    }
+                case "20":
+                    {
+                        if (LstMoney.SelectedItem.Equals("20"))
+                        {
+                            richTextBox1.AppendText("Transaction sent" + AccountNametxt.Text + DollarSign + MoneyArray[1] + Environment.NewLine);
+                            MoneyArray[1] = Remainder;
+                        }
+                        break;
+                    }
+                case "30":
+                    {
+                        if (LstMoney.SelectedItem.Equals("30"))
+                        {
+                            richTextBox1.AppendText("Transaction sent" + AccountNametxt.Text + DollarSign + MoneyArray[2] + Environment.NewLine);
+                            MoneyArray[2] = Remainder;
+                        }
+                        break;
+                    }
+
+                case "40":
+                    {
+                        if (LstMoney.SelectedItem.Equals("40"))
+                        {
+                            richTextBox1.AppendText("Transaction sent" + AccountNametxt.Text+ DollarSign + MoneyArray[3] + Environment.NewLine);
+                            MoneyArray[3] = Remainder;
+                        }
+                        break;
+                    }
+                case "50":
+                    {
+                        if (LstMoney.SelectedItem.Equals("50"))
+                        {
+                            richTextBox1.AppendText("Transaction sent" + AccountNametxt.Text + DollarSign + MoneyArray[4] + Environment.NewLine);
+                            MoneyArray[4] = Remainder;
+                        }
+                        break;
+                    }
+                    #endregion
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int l;
+            int i = int.Parse(LstMoney.SelectedItem.ToString());
+            MessageBox.Show(i.ToString());
+            while(true)
+            {
+               
+                if(LstMoney!=null)
+                {
+                    double remainingTotal = Total - Remainder;
+                    RemainingBalanceTxt.Text =  DollarSign+ remainingTotal.ToString();
+                }
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+        }
+
+        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AccountNametxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+#endregion
